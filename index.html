@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Snake</title>
+    <link rel="icon" href="img/Snake-icon.png">
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="Snake.js"></script>
+    <script src="js/script.js"></script>
+</head>
+<style>
+    body {
+        background: #333333;
+        text-align: center;
+    }
+
+    canvas {
+        background: #000;
+        -webkit-box-shadow: 0 0 20px blue;
+        -moz-box-shadow: 0 0 20px blue;
+        box-shadow: 0 0 20px blue;
+    }
+
+    h2 {
+        color: aliceblue;
+    }
+
+    h1 {
+        font-family: 'Lobster', arial, serif;
+        font-size: 50px;
+        text-indent: -100px;
+        margin-bottom: 20;
+        margin-top: 30px;
+        color: aliceblue;
+    }
+
+    .color {
+        height: 50px;
+        width: 50px;
+    }
+
+</style>
+
+<body onload="init()">
+    <h1>SNAKE</h1>
+    <div id="color">
+        <h2>Your Color</h2>
+    </div>
+    <h2>Score: <div id="score"></div></h2>
+</body>
+
+</html>

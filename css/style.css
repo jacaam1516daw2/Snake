@@ -1,0 +1,25 @@
+body {
+    background: #333333;
+    text-align: center;
+}
+canvas {
+    background: #000;
+    -webkit-box-shadow: 0 0 20px blue;
+    -moz-box-shadow: 0 0 20px blue;
+    box-shadow: 0 0 20px blue;
+}
+h2 {
+    color: aliceblue;
+}
+h1 {
+    font-family: 'Lobster', arial, serif;
+    font-size: 50px;
+    text-indent: -100px;
+    margin-bottom: 20;
+    margin-top: 30px;
+    color: aliceblue;
+}
+.color {
+    height: 50px;
+    width: 50px;
+}
