@@ -49,8 +49,7 @@ function onRequest(req, res) {
     }
 }
 
-
-function enviarMissatges(socket, data) {
+io.sockets.on('connection', function (socket) {
     socket.emit('rgb', {
         r: data.r,
         g: data.g,
@@ -61,19 +60,9 @@ function enviarMissatges(socket, data) {
         g: data.g,
         b: data.b
     });
-}
-io.sockets.on('connection', function (socket) {
+
     socket.on('r', function (data) {
         console.log('SERVIDOR -> dades rebudes del client->' + data.r);
         enviarMissatges(socket, data);
     });
-    socket.on('g', function (data) {
-        console.log('SERVIDOR -> dades rebudes del client->' + data.g);
-        enviarMissatges(socket, data);
-    });
-    socket.on('b', function (data) {
-        console.log('SERVIDOR -> dades rebudes del client->' + data.b);
-        enviarMissatges(socket, data);
-    });
-
 });

@@ -31,8 +31,11 @@ function init() {
     var doc = document;
 
     var canvas = doc.createElement('canvas');
+    //si pulsamos otra vez el espacio reanudamos el juego
     var setInt = win.setInterval;
+    //Si pulsamos la barra de espacio hacemos una pausa en el juego parando el interval
     var clInt = win.clearInterval;
+    doc.getElementById("color").style.backgroundColor = color;
 
     for (i = 0; i < 45; i++) {
         map[i] = [];
@@ -46,9 +49,7 @@ function init() {
     doc.body.appendChild(canvas);
 
     function placeFood() {
-
         var x, y;
-
         do {
             x = MR() * 45 | 0;
             y = MR() * 30 | 0;
@@ -60,30 +61,20 @@ function init() {
     }
     placeFood();
 
-
     function clock() {
-
         if (easy) {
             X = (X + 45) % 45;
             Y = (Y + 30) % 30;
         }
-
         --inc_score;
-
+        //compropvamos la dirección de la serpiente
         if (turn.length) {
             dir = turn.pop();
             if ((dir % 2) !== (direction % 2)) {
                 direction = dir;
             }
         }
-
-        if (
-
-            (easy || (0 <= X && 0 <= Y && X < 45 && Y < 30))
-
-
-            && 2 !== map[X][Y]) {
-
+        if ((easy || (0 <= X && 0 <= Y && X < 45 && Y < 30)) && 2 !== map[X][Y]) {
             if (1 === map[X][Y]) {
                 score += Math.max(5, inc_score);
                 inc_score = 50;
@@ -91,25 +82,24 @@ function init() {
                 elements++;
             }
 
+            //pintamos nueva posicion de la serpiente en cada vuelta
             ctx.fillRect(X * 10, Y * 10, 10 - 1, 10 - 1);
             map[X][Y] = 2;
             queue.unshift([X, Y]);
-
             X += xV[direction];
             Y += yV[direction];
-
             if (elements < queue.length) {
                 dir = queue.pop()
 
                 map[dir[0]][dir[1]] = 0;
                 ctx.fillStyle = color;
+                //borramos la antigua posicion de la serpiente
                 ctx.clearRect(dir[0] * 10, dir[1] * 10, 10, 10);
             }
-
         } else if (!turn.length) {
             //if (confirm("You lost! Play again? Your Score is " + score)) {
             color = dame_color_aleatorio();
-            document.getElementById("color").style.backgroundColor = color;
+            doc.getElementById("color").style.backgroundColor = color;
             ctx.fillStyle = color;
             ctx.clearRect(0, 0, 450, 300);
             queue = [];
@@ -135,13 +125,13 @@ function init() {
             // window.location = "index.html";
             // }
         }
-        document.getElementById("score").innerHTML = score;
+        doc.getElementById("score").innerHTML = score;
     }
 
     interval = setInt(clock, 120);
 
     doc.onkeydown = function (e) {
-
+        //recuperamos la dirección que se ha pulsado
         var code = e.keyCode - 37;
 
         /*
@@ -150,17 +140,19 @@ function init() {
          * 2: right
          * 3: down
          **/
+        //lo añadimos en la lista de direcciones
         if (0 <= code && code < 4 && code !== turn[0]) {
             turn.unshift(code);
         } else if (-5 == code) {
-
+            //Si pulsamos la barra de espacio hacemos una pausa en el juego
+            // parando el interval
             if (interval) {
                 clInt(interval);
                 interval = 0;
             } else {
+                //si pulsamos otra vez el espacio reanudamos el juego
                 interval = setInt(clock, 120);
             }
-
         } else { // O.o
             dir = sum + code;
             if (dir == 44 || dir == 94 || dir == 126 || dir == 171) {
